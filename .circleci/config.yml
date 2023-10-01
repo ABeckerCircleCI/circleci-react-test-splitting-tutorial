@@ -21,8 +21,10 @@ jobs:
       - node/install-packages:
           pkg-manager: yarn
       - run:
-          name: Run tests
-          command: yarn test
+            name: Test application
+            command: |
+                TEST=$(circleci tests glob "src/__tests__/*.js" | circleci tests split --split-by=timings)
+                yarn test $TEST
 
 # Orchestrate jobs using workflows
 # See: https://circleci.com/docs/configuration-reference/#workflows
