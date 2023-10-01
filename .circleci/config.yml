@@ -25,6 +25,11 @@ jobs:
             command: |
                 TEST=$(circleci tests glob "src/__tests__/*.js" | circleci tests split --split-by=timings)
                 yarn test $TEST
+      - run:
+          command: cp junit.xml ~/junit/
+          when: always
+      - store_test_results:
+          path: ~/junit
 
 # Orchestrate jobs using workflows
 # See: https://circleci.com/docs/configuration-reference/#workflows
